@@ -46,4 +46,4 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 
 ## Contact
 
-For any inquiries or questions, please contact [monirul.work.1729@gmail.com](mailto:monirul.work.1729@gmail.com).
+For any inquiries or questions, please contact [soumyaamakkar@gmail.com](mailto:soumyaamakkar@gmail.com).
