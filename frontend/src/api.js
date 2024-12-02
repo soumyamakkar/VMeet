@@ -29,7 +29,7 @@ export const createMeeting = async (authToken) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token:authToken }),
+        body: JSON.stringify({token:authToken}),
       }
     );
 
