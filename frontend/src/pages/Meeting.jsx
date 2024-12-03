@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Typography, CssBaseline, CircularProgress } from "@mui/material";
 import ParticipantView from "./ParticipantView";
 import MeetingControls from "../components/MeetingControls";
+import ChatView from "./ChatView"; // Import the ChatView component
 
 const Meeting = () => {
   const navigate = useNavigate();
@@ -36,37 +37,63 @@ const Meeting = () => {
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <CssBaseline />
       {joined === "JOINED" ? (
-        <>
+        <Box sx={{ display: "flex", flex: 1 }}>
+          {/* Main Meeting Section */}
+          <Box
+            sx={{
+              flex: 3,
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+            }}
+          >
+            {/* Participants Section */}
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignItems: "center",
+                p: 2,
+              }}
+            >
+              {[...participants.keys()].map((participantId) => (
+                <Box
+                  key={participantId}
+                  sx={{
+                    flex: participants.size === 1 ? "0 0 auto" : 1,
+                    width: participants.size === 1 ? "auto" : "50%",
+                    height: participants.size === 1 ? "auto" : "100%",
+                    maxWidth: participants.size === 1 ? "80%" : "100%",
+                    maxHeight: participants.size === 1 ? "80%" : "100%",
+                    p: 1,
+                  }}
+                >
+                  <ParticipantView participantId={participantId} />
+                </Box>
+              ))}
+            </Box>
+            {/* Meeting Controls */}
+            <Box sx={{ flexShrink: 0 }}>
+              <MeetingControls />
+            </Box>
+          </Box>
+
+          {/* Chat Section */}
           <Box
             sx={{
               flex: 1,
+              borderLeft: "1px solid #ddd",
               display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              alignItems: "center",
-              p: 2,
+              flexDirection: "column",
+              maxWidth: "300px",
+              overflow: "hidden",
             }}
           >
-            {[...participants.keys()].map((participantId) => (
-              <Box
-                key={participantId}
-                sx={{
-                  flex: participants.size === 1 ? "0 0 auto" : 1,
-                  width: participants.size === 1 ? "auto" : "50%",
-                  height: participants.size === 1 ? "auto" : "100%",
-                  maxWidth: participants.size === 1 ? "80%" : "100%",
-                  maxHeight: participants.size === 1 ? "80%" : "100%",
-                  p: 1,
-                }}
-              >
-                <ParticipantView participantId={participantId} />
-              </Box>
-            ))}
+            <ChatView />
           </Box>
-          <Box sx={{ flexShrink: 0 }}>
-            <MeetingControls />
-          </Box>
-        </>
+        </Box>
       ) : joined === "JOINING" ? (
         <Box
           sx={{
