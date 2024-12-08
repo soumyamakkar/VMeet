@@ -1,17 +1,19 @@
-import { useMeeting, useParticipant } from "@videosdk.live/react-sdk";
+import { useMeeting } from "@videosdk.live/react-sdk";
 
-import { Box, Container, Icon, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import CallEndIcon from "@mui/icons-material/CallEnd";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import MicIcon from "@mui/icons-material/Mic";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import ScreenShareIcon from "@mui/icons-material/ScreenShare";
+import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
 
 import { useAppState } from "../context/AppStateContext";
 
 const MeetingControls = () => {
   const { meetingId, micOn, webcamOn } = useAppState();
-  const { toggleMic, toggleWebcam, leave } = useMeeting();
+  const { toggleMic, toggleWebcam, leave, toggleScreenShare, isScreenShareActive } = useMeeting();
 
   return (
     <Box
@@ -25,9 +27,7 @@ const MeetingControls = () => {
       }}
     >
       <Box sx={{ flexBasis: "33%" }}>
-        <Typography variant="h6" sx={{}}>
-          {meetingId}
-        </Typography>
+        <Typography variant="h6">{meetingId}</Typography>
       </Box>
 
       {/* Controls Box */}
@@ -42,7 +42,6 @@ const MeetingControls = () => {
       >
         <IconButton
           onClick={() => toggleMic()}
-          // onClick={toggleMic}
           size="large"
           sx={{
             ml: "1rem",
@@ -59,9 +58,9 @@ const MeetingControls = () => {
             <MicOffIcon sx={{ color: "inherit" }} />
           )}
         </IconButton>
+
         <IconButton
           onClick={() => toggleWebcam()}
-          // onClick={toggleWebcam}
           size="large"
           sx={{
             ml: "1rem",
@@ -78,6 +77,27 @@ const MeetingControls = () => {
             <VideocamOffIcon sx={{ color: "inherit" }} />
           )}
         </IconButton>
+
+        {/* Screen Sharing Button */}
+        <IconButton
+          onClick={() => toggleScreenShare()}
+          size="large"
+          sx={{
+            ml: "1rem",
+            backgroundColor: "#808080",
+            color: "white",
+            "&:hover": {
+              backgroundColor: isScreenShareActive ? "#ff7b7b" : "#40e56b",
+            },
+          }}
+        >
+          {isScreenShareActive ? (
+            <StopScreenShareIcon sx={{ color: "inherit" }} />
+          ) : (
+            <ScreenShareIcon sx={{ color: "inherit" }} />
+          )}
+        </IconButton>
+
         <IconButton
           onClick={() => leave()}
           size="large"

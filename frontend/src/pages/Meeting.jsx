@@ -1,17 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { useMeeting } from "@videosdk.live/react-sdk";
+import React, { useMemo, useRef, useEffect, useState } from "react";
+import { useMeeting, useParticipant } from "@videosdk.live/react-sdk";
 import { useAppState } from "../context/AppStateContext";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, CssBaseline, CircularProgress } from "@mui/material";
 import ParticipantView from "./ParticipantView";
 import MeetingControls from "../components/MeetingControls";
-import ChatView from "./ChatView"; // Import the ChatView component
+import ChatView from "./ChatView";
+import ReactPlayer from "react-player";
+
+const ScreenShareView = ({ presenterId }) => {
+  const { screenShareStream, screenShareAudioStream, screenShareOn } = useParticipant(presenterId);
+  const audioRef = useRef();
+
+  useEffect(() => {
+    if (screenShareAudioStream && screenShareOn) {
+      const audioStream = new MediaStream();
+      audioStream.addTrack(screenShareAudioStream.track);
+      if (audioRef.current) {
+        audioRef.current.srcObject = audioStream;
+        audioRef.current.play().catch((err) => console.error("Audio play failed:", err));
+      }
+    }
+  }, [screenShareAudioStream, screenShareOn]);
+
+  const mediaStream = useMemo(() => {
+    if (screenShareOn && screenShareStream) {
+      const stream = new MediaStream();
+      stream.addTrack(screenShareStream.track);
+      return stream;
+    }
+  }, [screenShareOn, screenShareStream]);
+
+  return (
+    <>
+      {screenShareOn && mediaStream && (
+        <ReactPlayer
+          url={mediaStream}
+          playing
+          playsinline
+          controls={false}
+          muted
+          width="100%"
+          height="100%"
+        />
+      )}
+      {screenShareAudioStream && (
+        <audio ref={audioRef} autoPlay playsInline />
+      )}
+    </>
+  );
+};
 
 const Meeting = () => {
   const navigate = useNavigate();
   const [joined, setJoined] = useState(null);
   const { meetingId, onMeetingLeave } = useAppState();
-  const { join, participants } = useMeeting({
+  const { join, participants, presenterId } = useMeeting({
     onMeetingJoined: () => {
       setJoined("JOINED");
     },
@@ -47,6 +91,13 @@ const Meeting = () => {
               overflow: "hidden",
             }}
           >
+            {/* Screen Sharing Section */}
+            {presenterId && (
+              <Box sx={{ flex: 1, p: 2, background: "#f5f5f5" }}>
+                <ScreenShareView presenterId={presenterId} />
+              </Box>
+            )}
+
             {/* Participants Section */}
             <Box
               sx={{
