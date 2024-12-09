@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
   Box,
   Button,
   Checkbox,
-  Container,
   CssBaseline,
   FormControlLabel,
   TextField,
@@ -67,118 +65,116 @@ const SignInScreen = () => {
   const isFormValid = email && password;
 
   return (
-    <Container>
+    <Box
+      sx={{
+        background: "linear-gradient(to bottom right, #134B70, #4F1787, #4F1787, #4F1787, #134B70)",
+        height: "100vh", // Full height
+        width: "100%", // Ensure full width
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        overflow: "auto",
+      }}
+    >
       <CssBaseline />
+      <Typography variant="h4" gutterBottom>
+        SIGN IN
+      </Typography>
       <Box
+        component="form"
+        onSubmit={handleSubmit}
+        noValidate
         sx={{
-          height: "100vh",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          overflow:"auto",
+          padding: "2rem", // Add padding to form for spacing
+          maxWidth: "400px", // Limit width of form
+          width: "100%", // Ensure the form takes full width of its container
+          boxSizing: "border-box",
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          Sign In
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate
-        sx={{
-          height: "100%", // Ensure form width is contained
-          maxHeight: "400px", // Limit width of form
-          padding: "2rem", // Add padding to form for spacing
-          boxSizing: "border-box",
-        }}>
-
-          <TextField
-            fullWidth
-            required
-            margin="normal"
-            id="email"
-            label="Enter Email"
-            name="email"
-            autoComplete="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <TextField
-            fullWidth
-            required
-            margin="normal"
-            id="password"
-            type={showPassword ? "text" : "password"}
-            label="Enter Password"
-            name="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              mt: "2rem",
-            }}
+        <TextField
+          fullWidth
+          required
+          margin="normal"
+          id="email"
+          label="ENTER EMAIL"
+          name="email"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          fullWidth
+          required
+          margin="normal"
+          id="password"
+          type={showPassword ? "text" : "password"}
+          label="ENTER PASSWORD"
+          name="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            mt: "2rem",
+          }}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ paddingX: "1rem", margin: "1rem", fontSize: "1rem" }}
+            disabled={!isFormValid}
           >
+            SIGN IN
+          </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            my: { xs: "1rem", md: "2rem" },
+          }}
+        >
+          <Box sx={{ my: { xs: "0.2rem" } }}>
             <Button
-              type="submit"
-              variant="contained"
-              sx={{ paddingX: "1rem", margin: "1rem", fontSize: "1rem" }}
-              disabled={!isFormValid}
+              onClick={moveToSignUp}
+              sx={{
+                fontSize: "1rem",
+                textTransform: "none",
+                cursor: "pointer",
+              }}
             >
-              Sign In
+              Don't have an account? Sign Up
             </Button>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              my: { xs: "1rem", md: "2rem" },
-            }}
-          >
-            <Box sx={{ my: { xs: "0.2rem" } }}>
-              <Button
-                onClick={moveToSignUp}
-                sx={{
-                  fontSize: "1rem",
-                  textTransform: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Don't have an account? Sign Up
-              </Button>
-            </Box>
           </Box>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

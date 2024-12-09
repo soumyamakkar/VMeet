@@ -42,6 +42,7 @@ const MeetingSummary = () => {
   return (
     <Box
       sx={{
+        background: "linear-gradient(to bottom right, #4F1787, #4F1787, #4F1787, #EB3678)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

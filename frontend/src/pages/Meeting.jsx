@@ -78,7 +78,9 @@ const Meeting = () => {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Box sx={{ 
+      background: "linear-gradient(to bottom right, #4F1787, #4F1787, #4F1787, #EB3678)",
+      display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <CssBaseline />
       {joined === "JOINED" ? (
         <Box sx={{ display: "flex", flex: 1 }}>
@@ -137,6 +139,7 @@ const Meeting = () => {
               flex: 1,
               borderLeft: "1px solid #ddd",
               display: "flex",
+              color:"#000",
               flexDirection: "column",
               maxWidth: "300px",
               overflow: "hidden",
