@@ -14,6 +14,8 @@ import Prejoin from "./pages/Prejoin.jsx";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import MeetingContainer from "./pages/MeetingContainer.jsx";
+import GitHubCallbackScreen from "./pages/GithubCallbackScreen.jsx";
+import GoogleCallbackScreen from "./pages/GoogleCallbackScreen.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUpScreen />,
       },
+      {
+        path: "/callback",
+        element:<GitHubCallbackScreen/>,
+      },
+      {
+        path: "/google-callback",
+        element:<GoogleCallbackScreen/>
+      }
     ],
   },
 ]);

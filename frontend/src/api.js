@@ -106,3 +106,38 @@ export const signinUser = async (email, password) => {
     throw error;
   }
 };
+
+export const getGitHubOAuthURL = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/api/users/auth/github", {
+      method: "GET",
+    });
+
+    const data = await response.json();
+    return data.oauthUrl;  // The URL to redirect the user to GitHub for authorization
+  } catch (error) {
+    console.error("Error fetching GitHub OAuth URL", error);
+    throw error;
+  }
+};
+
+export const handleGitHubOAuthCallback = async (code) => {
+  try {
+    const response = await fetch("http://localhost:5000/api/users/auth/github/callback", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code }), // Send the authorization code to the backend
+    });
+
+    const data = await response.json();
+    return {
+      status: response.status,
+      token: data.token,  // You should get a JWT token or user details after a successful login
+    };
+  } catch (error) {
+    console.error("Error handling GitHub OAuth callback", error);
+    throw error;
+  }
+};

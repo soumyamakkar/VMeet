@@ -77,12 +77,20 @@ const SignInScreen = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
+          overflow:"auto",
         }}
       >
         <Typography variant="h4" gutterBottom>
           Sign In
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Box component="form" onSubmit={handleSubmit} noValidate
+        sx={{
+          height: "100%", // Ensure form width is contained
+          maxHeight: "400px", // Limit width of form
+          padding: "2rem", // Add padding to form for spacing
+          boxSizing: "border-box",
+        }}>
+
           <TextField
             fullWidth
             required

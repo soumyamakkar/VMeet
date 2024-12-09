@@ -39,7 +39,7 @@ const HomeScreen = () => {
     >
       <Box sx={{ textAlign: "center", marginBottom: 4 }}>
         <Typography variant="h2" sx={{ mb: "2rem" }}>
-          Welcome to VistaVoice
+          Welcome to VMeet
         </Typography>
         <Typography variant="h4" sx={{ mb: "2rem" }}>
           {/* Where Learning Meets Face-to-Face! */}
@@ -47,7 +47,7 @@ const HomeScreen = () => {
         </Typography>
         <Typography variant="h6" sx={{ maxWidth: "800px" }}>
           Connect with educators and classmates like never before. Our
-          cutting-edge face detection technology ensures an immersive and
+          cutting-edge video conferencing technology ensures an immersive and
           engaging video calling experience tailored for educational
           environments. Tap "Start Now" to begin your video calls
         </Typography>
