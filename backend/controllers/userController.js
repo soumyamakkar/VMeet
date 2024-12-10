@@ -6,6 +6,7 @@ const User = require("../models/User");
 const JWT_SECRET="e2440866723fcb7fb48772c00ad7b81c6d3e112a11fd40052d77987d8d0ab5dc";
 
 exports.registerUser = async (req, res) => {
+  console.log("sign up called");
   try {
     const { username, email, password, role } = req.body;
     console.log(
