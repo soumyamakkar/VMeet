@@ -110,7 +110,7 @@ exports.authUser = async (req, res) => {
         client_id: 'Ov23liECOE7wTGHeFuPz',
         client_secret: '6708a336ddd3c91a5b1425d00b0359db4350a38f',
         code:code,
-        redirect_uri: 'http://localhost:5173/callback',
+        redirect_uri: 'https://vmeetfrontend.onrender.com/callback',
       },
       { headers: { Accept: 'application/json' } }
     );
