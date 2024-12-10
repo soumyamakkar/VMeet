@@ -22,7 +22,7 @@ const GoogleCallbackScreen = () => {
 
     if (token) {
       // Now exchange the token for user info if necessary (optional)
-      fetch("http://localhost:5000/api/users/auth/google/callback", {
+      fetch("https://vmeet-4enh.onrender.com/api/users/auth/google/callback", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

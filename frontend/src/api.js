@@ -2,7 +2,7 @@ export const fetchToken = async () => {
   try {
     console.log("api.js function called");
     const response = await fetch(
-      `http://localhost:5000/api/meeting/fetch-token`,
+      `https://vmeet-4enh.onrender.com/api/meeting/fetch-token`,
       {
         method: "GET",
         headers: {
@@ -23,7 +23,7 @@ export const createMeeting = async (authToken) => {
   try {
     console.log("api.js create meeting called with authtoken",authToken);
     const response = await fetch(
-      `http://localhost:5000/api/meeting/create-room`,
+      `https://vmeet-4enh.onrender.com/api/meeting/create-room`,
       {
         method: "POST",
         headers: {
@@ -50,7 +50,7 @@ export const signupUser = async (
 ) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/users/register`,
+      `https://vmeet-4enh.onrender.com/api/users/register`,
       {
         method: "POST",
         headers: {
@@ -81,7 +81,7 @@ export const signupUser = async (
 export const signinUser = async (email, password) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/users/login`,
+      `https://vmeet-4enh.onrender.com/api/users/login`,
       {
         method: "POST",
         headers: {
@@ -109,7 +109,7 @@ export const signinUser = async (email, password) => {
 
 export const getGitHubOAuthURL = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/users/auth/github", {
+    const response = await fetch("https://vmeet-4enh.onrender.com/api/users/auth/github", {
       method: "GET",
     });
 
@@ -123,7 +123,7 @@ export const getGitHubOAuthURL = async () => {
 
 export const handleGitHubOAuthCallback = async (code) => {
   try {
-    const response = await fetch("http://localhost:5000/api/users/auth/github/callback", {
+    const response = await fetch("https://vmeet-4enh.onrender.com/api/users/auth/github/callback", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -138,6 +138,51 @@ export const handleGitHubOAuthCallback = async (code) => {
     };
   } catch (error) {
     console.error("Error handling GitHub OAuth callback", error);
+    throw error;
+  }
+};
+
+
+export const request2FACode = async (email) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/users/send-code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }), // Pass the user's email to generate the code
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to request 2FA code.");
+    }
+
+    return data.message; // Success message from backend
+  } catch (error) {
+    console.error("Error requesting 2FA code", error);
+    throw error;
+  }
+};
+
+export const verify2FACode = async (email, code) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/users/verify-code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, code }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Invalid 2FA code.");
+    }
+
+    return data.token; // Return JWT or user info upon successful verification
+  } catch (error) {
+    console.error("Error verifying 2FA code", error);
     throw error;
   }
 };

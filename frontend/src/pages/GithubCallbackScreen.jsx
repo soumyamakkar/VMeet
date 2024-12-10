@@ -18,7 +18,7 @@ const GithubCallbackScreen = () => {
 
     if (code) {
       // Now exchange the code for an access token
-      fetch("http://localhost:5000/api/users/auth/github/callback", {
+      fetch("https://vmeet-4enh.onrender.com/api/users/auth/github/callback", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

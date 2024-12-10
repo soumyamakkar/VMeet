@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa"; // Import the GitHub icon
 import { FcGoogle } from "react-icons/fc"; // Import the Google icon
 import axios from "axios"; // Import axios for making the API request
+import {request2FACode } from "../api";
 
 import {
   Box,
@@ -66,7 +67,8 @@ const SignUpScreen = () => {
       );
       if (response.status === 201) {
         setUserData(response.token);
-        navigate("/prejoin");
+        request2FACode(email);
+        navigate("/TwoFactorAuthPage");
       } else {
         console.error("Registration failed");
       }

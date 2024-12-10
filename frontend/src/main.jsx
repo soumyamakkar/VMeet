@@ -16,6 +16,7 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import MeetingContainer from "./pages/MeetingContainer.jsx";
 import GitHubCallbackScreen from "./pages/GithubCallbackScreen.jsx";
 import GoogleCallbackScreen from "./pages/GoogleCallbackScreen.jsx";
+import TwoFactorAuthPage from "./pages/TwoFactorAuthPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,9 @@ const router = createBrowserRouter([
       {
         path: "/google-callback",
         element:<GoogleCallbackScreen/>
-      }
+      },
+      {path:"/TwoFactorAuthPage",
+      element:<TwoFactorAuthPage/>}
     ],
   },
 ]);
