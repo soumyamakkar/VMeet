@@ -79,7 +79,7 @@ const SignUpScreen = () => {
 
   const handleGitHubLogin = () => {
     const clientId = "Ov23liECOE7wTGHeFuPz"; // GitHub OAuth client ID
-    const redirectUri = "http://localhost:5173/callback"; // Redirect URI
+    const redirectUri = "https://vmeetfrontend.onrender.com/callback"; // Redirect URI
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user`;
 
     window.location.href = githubAuthUrl; // Redirect to GitHub's OAuth page
@@ -87,7 +87,7 @@ const SignUpScreen = () => {
 
   const handleGoogleLogin = () => {
     const clientId = "715481738239-4grh324jiteif0q8d46fovjbfemh7jda.apps.googleusercontent.com"; // Replace with your Google OAuth client ID
-    const redirectUri = "http://localhost:5173/google-callback"; // Replace with your callback URL
+    const redirectUri = "https://vmeetfrontend.onrender.com/google-callback"; // Replace with your callback URL
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=email&response_type=token`;
 
     window.location.href = googleAuthUrl; // Redirect to Google's OAuth page
