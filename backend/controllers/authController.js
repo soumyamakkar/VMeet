@@ -5,6 +5,7 @@ const generateCode = () => Math.floor(100000 + Math.random() * 900000); // 6-dig
 
 // Send verification code
 const sendVerificationCode = async (req, res) => {
+    console.log("send email func called");
     const { email } = req.body;
 
     if (!email) return res.status(400).json({ error: 'Email is required.' });

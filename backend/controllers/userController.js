@@ -7,13 +7,12 @@ const JWT_SECRET="e2440866723fcb7fb48772c00ad7b81c6d3e112a11fd40052d77987d8d0ab5
 
 exports.registerUser = async (req, res) => {
   try {
-    const { username, email, password, institute, role } = req.body;
+    const { username, email, password, role } = req.body;
     console.log(
       "Data received from frontend: ",
       username,
       email,
       password,
-      institute,
       role
     );
 
@@ -31,7 +30,6 @@ exports.registerUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      institute,
       role,
     });
 

@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET="63bcec40956c34f991aa2a486117eeeaf9f303d01049b7f3073d66ca84efe5b8";
-const API_KEY="7c46fcfc-1056-41fb-bcbe-555462e5566c";
+const BACKEND_URL = process.env.BACKEND_URL;
 
 
 exports.fetchToken = async (req, res) => {
@@ -12,15 +11,15 @@ exports.fetchToken = async (req, res) => {
       algorithm: "HS256",
     };
     const payload = {
-      apikey:API_KEY,
+      apikey:process.env.VIDEOSDK_API_KEY,
       permissions:[`allow_join`],
       version:2,
     };
 
     console.log(payload);
-    console.log(SECRET);
+    console.log(process.env.VIDEOSDK_SECRET);
     console.log(options);
-    const token = jwt.sign(payload,SECRET,options);
+    const token = jwt.sign(payload,process.env.VIDEOSDK_SECRET,options);
     res.json({ token: token });
   } catch (error) {
     console.error("Failed to fetch authToken ");
@@ -34,7 +33,7 @@ exports.createRoom = async (req, res) => {
   try {
     const bodyPayload = {
       webhook: {
-        endPoint:"https://08f8-152-58-89-8.ngrok-free.app/webhook",
+        endPoint: "https://08f8-152-58-89-8.ngrok-free.app/webhooks",
         events: ["session-ended"],
       },
     };

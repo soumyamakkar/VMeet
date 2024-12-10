@@ -15,10 +15,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: function() { return !this.githubId && !this.googleId; }, 
   },
-  institute: {
-    type: String,
-    required: function() { return !this.githubId && !this.googleId; }, 
-  },
+  // institute: {
+  //   type: String,
+  //   required: function() { return !this.githubId && !this.googleId; }, 
+  // },
   role: {
     type: String,
     enum: ["student", "teacher"],
