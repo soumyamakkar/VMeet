@@ -34,7 +34,7 @@ exports.createRoom = async (req, res) => {
   try {
     const bodyPayload = {
       webhook: {
-        endPoint:"https://12ee-152-59-83-157.ngrok-free.app/webhook",
+        endPoint:"https://08f8-152-58-89-8.ngrok-free.app/webhook",
         events: ["session-ended"],
       },
     };

@@ -3,9 +3,18 @@ const passport = require('passport');
 const router = express.Router();
 
 const userController = require("../controllers/userController");
+const { sendVerificationCode, verifyCode } = require('../controllers/authController');
 
 router.post("/register", userController.registerUser);
+
 router.post("/login", userController.loginUser);
+
+
+router.post('/send-code', sendVerificationCode);
+router.post('/verify-code', verifyCode);
+
+
+
 router.post("/auth/github/callback",userController.authUser);
 
 router.get('/auth/github', (req, res) => {

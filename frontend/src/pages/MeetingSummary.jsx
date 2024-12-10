@@ -42,7 +42,7 @@ const MeetingSummary = () => {
   return (
     <Box
       sx={{
-        background: "linear-gradient(to bottom right, #4F1787, #4F1787, #4F1787, #EB3678)",
+        background: "linear-gradient(to bottom right, #134B70, #4F1787, #4F1787, #4F1787, #134B70)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -66,7 +66,7 @@ const MeetingSummary = () => {
             <Typography variant="h5" gutterBottom>
               Total Meeting Duration: {meetingDuration} seconds
             </Typography>
-            <Typography variant="h5" gutterBottom>
+            {/* <Typography variant="h5" gutterBottom>
               Your Attendance Score: {attendanceScore}%
             </Typography>
             {isAttendanceGranted ? (
@@ -78,8 +78,8 @@ const MeetingSummary = () => {
               <Typography variant="h6" sx={{ mt: "2rem", maxWidth: "550px" }}>
                 You haven't met the minimum attendance requirements for today's
                 session. Please be more attentive during classes.
-              </Typography>
-            )}
+              </Typography> */}
+            {/* )} */}
           </Fragment>
         ) : (
           <Box

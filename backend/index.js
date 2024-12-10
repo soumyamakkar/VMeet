@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
+const redisClient=require("./config/redis")
 const io = require("socket.io")(server, {
   cors: {
     // origin: [`${process.env.FRONTEND_URL}`],
@@ -19,6 +20,9 @@ const connectDB = require("./config/db");
 
 // Connect to mongodb
 connectDB();
+
+//connect to redis
+redisClient.connect().then(() => console.log('Redis connected'));
 
 // Middlewares
 app.use(

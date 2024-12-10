@@ -106,7 +106,7 @@ const SignUpScreen = () => {
     email &&
     password &&
     (passwordTouched ? isPasswordValid : true) &&
-    institute &&
+    // institute &&
     role;
 
   return (

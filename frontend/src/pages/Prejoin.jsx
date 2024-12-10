@@ -84,10 +84,18 @@ const Prejoin = () => {
   }, []);
 
   return (
-    <Box>
+    <Box
+    sx={{
+      background: "linear-gradient(to bottom right, #134B70, #4F1787, #4F1787, #4F1787, #134B70)",
+      pt: 0,
+      pb: 0,
+      pl:10,
+      pr:10,
+    }}
+    >
       <Box
         sx={{
-          background: "linear-gradient(to bottom right, #134B70, #4F1787, #4F1787, #4F1787, #134B70)",
+          
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
