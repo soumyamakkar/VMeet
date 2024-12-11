@@ -144,8 +144,9 @@ export const handleGitHubOAuthCallback = async (code) => {
 
 
 export const request2FACode = async (email) => {
+  console.log("inside req 2fa code func frontend");
   try {
-    const response = await fetch(`http://localhost:5000/api/users/send-code`, {
+    const response = await fetch("https://vmeet-4enh.onrender.com/api/users/send-code", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -167,7 +168,7 @@ export const request2FACode = async (email) => {
 
 export const verify2FACode = async (email, code) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/users/verify-code`, {
+    const response = await fetch(`https://vmeet-4enh.onrender.com/api/users/verify-code`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
