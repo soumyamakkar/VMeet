@@ -5,6 +5,10 @@
 
 This is a video calling application specifically designed for educational institutions. It provides a platform for conducting online classes with features like face detection-based attendance tracking, user authentication, and role-based access control.
 
+Dummy Credentials:
+email:soumyaamakkar@gmail.com
+password:12345678
+
 ## Features
 
 - User authentication: Users can sign up and log in to the application using their credentials.
