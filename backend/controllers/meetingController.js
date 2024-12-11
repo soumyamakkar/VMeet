@@ -33,7 +33,7 @@ exports.createRoom = async (req, res) => {
   try {
     const bodyPayload = {
       webhook: {
-        endPoint: "https://vmeet-4enh.onrender.com/webhooks",
+        endPoint: "https://vmeet-4enh.onrender.com/webhook",
         events: ["session-ended"],
       },
     };

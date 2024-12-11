@@ -1,5 +1,7 @@
 import { useMeeting } from "@videosdk.live/react-sdk";
 
+import { useMediaDevice } from "@videosdk.live/react-sdk";
+
 import { Box, IconButton, Typography } from "@mui/material";
 import CallEndIcon from "@mui/icons-material/CallEnd";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -12,8 +14,8 @@ import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
 import { useAppState } from "../context/AppStateContext";
 
 const MeetingControls = () => {
-  const { meetingId, micOn, webcamOn } = useAppState();
-  const { toggleMic, toggleWebcam, leave, toggleScreenShare, isScreenShareActive } = useMeeting();
+  const { meetingId, micOn, webcamOn} = useAppState();
+  const { toggleWebcam, leave, toggleScreenShare, isScreenShareActive } = useMeeting();
 
   return (
     <Box
@@ -58,6 +60,8 @@ const MeetingControls = () => {
             <MicOffIcon sx={{ color: "inherit" }} />
           )}
         </IconButton>
+
+        
 
         <IconButton
           onClick={() => toggleWebcam()}

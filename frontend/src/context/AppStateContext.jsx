@@ -36,16 +36,24 @@ export const AppStateProvider = ({ children }) => {
   const [mediaStream, setMediaStream] = useState(null);
 
   const toggleMic = () => {
+    console.log("toggle mic called");
     if (mediaStream) {
       const audioTracks = mediaStream.getAudioTracks();
-      audioTracks.forEach((track) => {
-        track.enabled = !micOn;
-      });
-      setMicOn(!micOn);
+      console.log("Audio Tracks:", audioTracks);
+      if (audioTracks.length > 0) {
+        audioTracks.forEach((track) => {
+          track.enabled = !micOn;
+        });
+        setMicOn(!micOn);
+      } else {
+        console.log("No audio tracks found in mediaStream");
+      }
+    } else {
+      console.log("Media stream is not available");
     }
   };
-
-  const toggleWebcam = () => {
+  
+  const toggleWebcamm = () => {
     if (mediaStream) {
       const videoTracks = mediaStream.getVideoTracks();
       videoTracks.forEach((track) => {
@@ -153,7 +161,7 @@ export const AppStateProvider = ({ children }) => {
         clearUserData,
         checkTokenValidity,
         toggleMic,
-        toggleWebcam,
+        toggleWebcamm,
       }}
     >
       {children}

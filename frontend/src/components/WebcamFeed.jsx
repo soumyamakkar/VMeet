@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState, useEffect } from "react";
 
 import { useMediaDevice } from "@videosdk.live/react-sdk";
-
+import { useMeeting } from "@videosdk.live/react-sdk";
 import { Box, IconButton } from "@mui/material";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import MicIcon from "@mui/icons-material/Mic";
@@ -11,13 +11,15 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import DeviceList from "../components/DeviceList";
 import { useAppState } from "../context/AppStateContext";
 
+
+
 const WebcamFeed = () => {
   const { requestPermission } = useMediaDevice();
   const {
     mediaStream,
     setMediaStream,
     toggleMic,
-    toggleWebcam,
+    toggleWebcamm,
     micOn,
     webcamOn,
   } = useAppState();
@@ -145,7 +147,7 @@ const WebcamFeed = () => {
               },
             }}
             size="large"
-            onClick={toggleWebcam}
+            onClick={toggleWebcamm}
           >
             {webcamOn ? (
               <VideocamIcon sx={{ color: "inherit" }} />
