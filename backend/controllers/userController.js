@@ -6,40 +6,55 @@ const User = require("../models/User");
 const JWT_SECRET="e2440866723fcb7fb48772c00ad7b81c6d3e112a11fd40052d77987d8d0ab5dc";
 
 exports.registerUser = async (req, res) => {
-  console.log("Sign up called");
-  const { username, email, password, role } = req.body;
-
+  console.log("sign up called");
   try {
+    const { username, email, password, role } = req.body;
+    console.log(
+      "Data received from frontend: ",
+      username,
+      email,
+      password,
+      role
+    );
+
+    // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }
 
-    // Hash the password
+    // Hash the password before storing in DB
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Generate a verification code
-    const code = Math.floor(100000 + Math.random() * 900000);
-    const userData = JSON.stringify({
+    // Create user and store him in backend
+    const newUser = new User({
       username,
       email,
       password: hashedPassword,
       role,
     });
 
-    // Store user details and verification code in Redis
-    await redisClient.setEx(`pendingUser:${email}`, 600, userData); // Expire in 10 minutes
-    await redisClient.setEx(`verification:${email}`, 300, code.toString()); // Code expires in 5 minutes
+    const savedUser = await newUser.save();
+    console.log("The user entered in db: ", savedUser);
 
-    // Send the code via email
-    await sendEmail(email, "Your Verification Code", `Your code is: ${code}`);
+    // Generate token
+    const token = jwt.sign(
+      {
+        userId: savedUser._id,
+        username: savedUser.username,
+        role: savedUser.role,
+      },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
-    res.status(200).json({
-      message: "Verification code sent. Please verify your email to complete registration.",
+    res.status(201).json({
+      message: "User registered successfully",
+      token,
     });
   } catch (error) {
-    console.error("Error in registration:", error);
-    res.status(500).json({ message: "Error in registration" });
+    console.error("Error in creating a new user", error);
+    res.status(500).json({ message: "Error in creating a new user" });
   }
 };
 
