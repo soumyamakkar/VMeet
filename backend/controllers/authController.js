@@ -25,27 +25,42 @@ const sendVerificationCode = async (req, res) => {
 
 // Verify code
 const verifyCode = async (req, res) => {
-    const { email, code } = req.body;
+  const { email, code } = req.body;
 
-    if (!email || !code) return res.status(400).json({ error: 'Email and code are required.' });
+  if (!email || !code) {
+    return res.status(400).json({ message: "Email and code are required." });
+  }
 
-    const key = `verification:${email}`;
+  try {
+    const storedCode = await redisClient.get(`verification:${email}`);
+    const userData = await redisClient.get(`pendingUser:${email}`);
 
-    try {
-        const storedCode = await redisClient.get(key);
-
-        if (!storedCode) return res.status(400).json({ error: 'Code expired or invalid.' });
-
-        if (storedCode === code) {
-            // Code matches
-            await redisClient.del(key); // Delete key after successful verification
-            res.status(200).json({ message: 'Verification successful.' });
-        } else {
-            res.status(400).json({ error: 'Invalid verification code.' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: 'Verification failed.' });
+    if (!storedCode || !userData) {
+      return res.status(400).json({ message: "Code expired or user data invalid." });
     }
+
+    if (storedCode === code) {
+      // Verification successful: Save user to database
+      const { username, password, role } = JSON.parse(userData);
+
+      const newUser = new User({ username, email, password, role });
+      await newUser.save();
+
+      // Delete Redis keys
+      await redisClient.del(`verification:${email}`);
+      await redisClient.del(`pendingUser:${email}`);
+
+      // Generate JWT token
+      const token = jwt.sign({ userId: newUser._id, email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+      res.status(201).json({ message: "User registered successfully.", token });
+    } else {
+      res.status(400).json({ message: "Invalid verification code." });
+    }
+  } catch (error) {
+    console.error("Error verifying code:", error);
+    res.status(500).json({ message: "Verification failed." });
+  }
 };
 
 module.exports = { sendVerificationCode, verifyCode };

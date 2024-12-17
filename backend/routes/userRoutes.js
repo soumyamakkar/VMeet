@@ -11,7 +11,7 @@ router.post("/login", userController.loginUser);
 
 
 router.post('/send-code', sendVerificationCode);
-router.post('/verify-code', verifyCode);
+router.post('/verifyCode', verifyCode);
 
 
 
